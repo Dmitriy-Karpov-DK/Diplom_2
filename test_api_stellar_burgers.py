@@ -63,12 +63,12 @@ class TestLoginUser:
         name = Constants.TEST_USER_NAME
         response = MethodApi.create_user(self, email, password, name)
         acc_token = response.json()["accessToken"]
-        response = MethodApi.login_user(self, email, password)
+        response = MethodApi.login_user(self, Constants.TEST_USER_EMAIL, Constants.TEST_USER_PASSWORD)
         success = response.json()["success"]
         user = response.json()["user"]
         assert response.status_code == 200
         assert success is True
-        assert user == {"email": email, "name": name}
+        assert user == {"email": Constants.TEST_USER_EMAIL, "name": Constants.TEST_USER_NAME}
         MethodApi.delete_user(self, acc_token)
 
     @allure.title('Проверка авторизации с неверным логином и/или паролем')
